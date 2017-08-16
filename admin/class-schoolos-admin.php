@@ -55,6 +55,34 @@ class Schoolos_Admin {
 	}
 
 	/**
+	 * [add_menu description]
+	 */
+	public function add_menu() {
+
+		add_menu_page('WP Schoolos', 'Schoolos', 'manage_options', 'schoolos', array($this, 'dashboard'));
+		add_submenu_page( 'schoolos', 'Dashboard', 'Dashboard', 'manage_options', 'schoolos', array($this, 'dashboard'));
+		add_submenu_page( 'schoolos', 'test1', 'test1', 'manage_options', 'test12', array($this, 'main_page'));
+	}
+
+
+	public function main_page() {
+		
+	}
+	/**
+	 * Load Dashboard template 
+	 * @return [type] [description]
+	 */
+	public function dashboard() {
+		include( plugin_dir_path( __FILE__ ) . '../resource/template/admin/dashboard.php' );
+		$this->dashboard_enqueue_script();
+	}
+
+	public function dashboard_enqueue_script() {
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dashboard.js', [], $this->version, false );
+	}
+
+
+	/**
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
@@ -96,7 +124,8 @@ class Schoolos_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/schoolos-admin.js', array( 'jquery' ), $this->version, false );
+		
+		//wp_enqueue_script( 'access', plugin_dir_url( __FILE__ ) . 'js/access_right.js', [], $this->version, false );
 
 	}
 
